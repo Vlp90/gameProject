@@ -26,9 +26,8 @@
 }
 
 .eventCard {
-    text-align: center;
-    line-height: 150px;
-    
+	text-align: center;
+	line-height: 250px;
 }
 
 .card-member {
@@ -62,7 +61,6 @@
 	border-radius: 6px 6px 0 0;
 }
 
-
 .iconSize {
 	width: 20px;
 	height: 20px;
@@ -70,7 +68,8 @@
 }
 
 .damage,
-.cost {
+.cost,
+.number {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -94,51 +93,297 @@
 /*UNIQUE CARDS CHANGES*/
 
 .iconWhite {
-    fill: white;
-    background-color: white;
+	fill: white;
+	background-color: white;
 }
 
 .iconBlue {
-    fill: violet;
-    background-color: violet;
+	fill: rgb(26, 39, 228);;
+	background-color: rgb(26, 39, 228);
 }
 
 .iconRed {
-    fill: red;
-    background-color: red;
+	fill: red;
+	background-color: red;
 }
+
+.iconOrange {
+	fill: orange;
+	background-color: orange;
+}
+
+.iconViolet {
+	fill: rgb(179, 14, 179);;
+	background-color: rgb(179, 14, 179);
+}
+
 
 
 #nedStark {
 	height: 65%;
-	background-image: url("/images/characters/NedStark.jpg");
+	background-image: url("/images/characters/ned.jpg");
 	background-size: cover;
-    background-position: center;
-    filter: grayscale(50%)
+	background-position: left;
+	filter: grayscale(50%);
 }
 
-#kings-landing{
+#sansa {
+	height: 65%;
+	background-image: url("/images/characters/sansa.jpeg");
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(50%);
+}
+
+#robb {
+	height: 65%;
+	background-image: url("/images/characters/robb.jpeg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#arya {
+	height: 65%;
+	background-image: url("/images/characters/arya.jpg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#daenerys {
+	height: 65%;
+	background-image: url("/images/characters/daenerys.jpg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#rhaegar {
+	height: 65%;
+	background-image: url("/images/characters/rhaegar.png");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#viserys {
+	height: 65%;
+	background-image: url("/images/characters/Viserys.jpg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#stannis {
+	height: 65%;
+	background-image: url("/images/characters/stannis.png");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#renly {
+	height: 65%;
+	background-image: url("/images/characters/Renly_Baratheon.png");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#robert {
+	height: 65%;
+	background-image: url("/images/characters/robert.jpg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#lancel {
+	height: 65%;
+	background-image: url("/images/characters/lancel.png");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#jaime {
+	height: 65%;
+	background-image: url("/images/characters/jaime.jpeg");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#cersei {
+	height: 65%;
+	background-image: url("/images/characters/cersei.png");
+	background-size: cover;
+	background-position: top;
+	filter: grayscale(50%);
+}
+
+#tyrion {
+	height: 65%;
+	background-image: url("/images/characters/tyrion.png");
+	background-size: cover;
+	background-position: center;
+	filter: grayscale(50%);
+}
+
+
+
+
+
+
+
+
+#kings-landing {
 	background-image: url("/images/kingLanding.jpg");
 	background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    filter: grayscale(50%)
-    
+	background-position: center;
+	border-radius: 6px;
+	filter: grayscale(50%);
 }
 
-#nerra-battle{
+#nerra-battle {
 	background-image: url("/images/battleNera.png");
 	background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    filter: grayscale(50%)
+	background-position: center;
+	border-radius: 6px;
+	filter: grayscale(50%);
 }
 
+#dragon-battle {
+	background-image: url("/images/dragons.jpg");
+	background-size: cover;
+	background-position: center;
+	border-radius: 6px;
+	filter: grayscale(50%);
+}
+
+#walker-battle {
+	background-image: url("/images/deadWalker.jpg");
+	background-size: cover;
+	background-position: center;
+	border-radius: 6px;
+	filter: grayscale(50%);
+}
 .rotate {
-    transform: rotate(-90deg);
+	transform: rotate(-90deg);
 }
 
-.middle-left {
-    margin: 100;
-    padding: 0;
+.rotate2 {
+	transform: rotate(90deg);
+}
+
+.middle {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+}
+
+.middle-center {
+	width: 30%;
+}
+
+.middle-both {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+.middle-center-left {
+	width: 90%;
+	border-radius: 6px;
+	margin-bottom: 20px;
+}
+
+.middle-center-right {
+	width: 100%;
+	height: 400px;
+	background-color: white;
+	border-radius: 6px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	opacity: 0.7;
+}
+
+.container-player {
+	background-color: white;
+	width: 90%;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	border-radius: 6px;
+	opacity: 0.7;
+}
+
+.button-action {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	align-content: center;
+}
+
+.button-action button {
+	margin: 10px;
+}
+
+.player-init {
+	margin-bottom: 50px;
+}
+
+/* BUTTONS */
+
+#buy-btn {
+	background-color: black;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+}
+
+#cancel-btn {
+	background-color: red;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+}
+
+#buy-btn:hover {
+	background-color: #d3c5a7;
+	color: black;
+}
+
+#buy-btn:active {
+	background-color: #d3c5a7;
+	transform: translateY(1px);
+}
+
+#cancel-btn:hover {
+	background-color: #d3c5a7;
+	color: black;
+}
+
+#cancel-btn:active {
+	background-color: #d3c5a7;
+	transform: translateY(1px);
+}
+
+#player-play {
+	font-size: 30px;
+	color: red;
+	font-weight: 600;
 }
