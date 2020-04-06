@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
 }
 
 .main-image {
@@ -17,16 +18,36 @@
 	background-repeat: no-repeat;
 }
 
-.main-select {
+.order {
 	background-color: white;
-	opacity: 80%;
+	opacity: 95%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 50%;
+	width: 40%;
+	height: 60px;
 	padding: 10px;
 	border-radius: 6px;
 	text-align: center;
+}
+
+.order2 {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	width: 40%;
+	text-align: center;
+}
+
+.order3 {
+	justify-content: center;
+}
+.player-select div{
+	width: 40%;
+}
+
+.player-select, .start-select {
+	margin-top: 20px;
 }
 
 
@@ -39,6 +60,27 @@
 	padding: 10px;
 	border-radius: 4px;
 	
+}
+
+button:hover {
+	background-color: #D3C5A7;
+	color: black;
+  }
+
+button:active {
+	background-color: #D3C5A7;
+	transform: translateY(1px);
+}
+
+
+/*START BTN*/
+
+.start-btn {
+	background-color: black;
+	color: white;
+	border : none;
+	padding: 10px;
+	border-radius: 4px;
 	
 }
 
@@ -51,3 +93,39 @@ button:active {
 	background-color: #D3C5A7;
 	transform: translateY(1px);
 }
+
+#start:hover {
+	background-color: #D3C5A7;
+	color: black;
+  }
+
+#start:active {
+	background-color: #D3C5A7;
+	transform: translateY(1px);
+}
+
+/*INPUTS*/
+
+#name-input {
+	padding: 5px;
+	width: 50%;
+	color: white;
+}
+
+/*
+::placeholder { 
+	color: white;
+	opacity: 0.8; 
+  }
+
+  */
+
+  #color-input {
+	padding: 6px;
+	width: 20%;
+	color: white;
+	margin-left: 30px;
+}
+
+
+

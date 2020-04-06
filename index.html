@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games of Thrones Legacy</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script>
 
     <!-- FONTS -->
@@ -12,15 +12,35 @@
 
 </head>
 
+<body>
+
 <section class="main-image">
-<div class = "main-select">
+<div class = "main-select order">
     <button class="btn btnLess"><strong>-</strong></button>
-    <h3>Select numbers of Players</h3>
+    <h1>Select numbers of Players</h1>
     <button class="btn btnMore"><strong>+</strong></button>
 </div>
+
+<div class = "player-select order order3">
+        <input id="name-input" type="text" placeholder="Enter Player's name">
+        
+        <div class="order2">
+            <label>Pick your color</label>
+            <input id="color-input" type="color">
+        </div>
+</div>
+
+
+<div class = "start-select order">
+    <form action="./board/board.html">
+        <input id='start' class="start-btn" type="submit" value="Start the game" />
+    </form>
+</div>
+
+
 </section>
 
-<body>
+
     
 </body>
 </html>
