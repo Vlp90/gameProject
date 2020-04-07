@@ -1,21 +1,45 @@
 const addPlayerBtn = document.getElementById('addPlayer');
-const blockPlayerContainer = document.getElementById('player-select order order3')
+const removePlayerBtn = document.getElementById('removePlayer');
+const blockPlayerContainer = document.getElementById('player-select order order3');
+const startGame = document.getElementById('start');
 
 
+let playerNumber = 0;
 // ADD PLAYER CONTAINER
-
 function addPlayerContainer() {
+	playerNumber++;
+
+	let insertContainer = document.querySelector('.main-select.order');
+	insertContainer.insertAdjacentHTML(
+		'afterend',
+		'<div class = "player-select order order3"><input id="name-input" type="text" placeholder="Enter Playername"><div class="order2"><label>Pick your color</label><input id="color-input" type="color"></div></div>'
+	);
+}
+// EXECUTE
+addPlayerBtn.onclick = addPlayerContainer;
 
 
-//     const newBlock = document.createElement("div");
-//   // console.dir(newBlock, "this is my new div");
-//   newBlock.classList.add("player-select");
 
-//   return newBlock;
+// REMOVE PLAYER CONTAINER
+function removePlayerContainer() {
 
-    addPlayerBtn.style.backgroundColor = "red";
-    addPlayerBtn.style.color = "white";
-    addPlayerBtn.innerHTML = "Red vlad"; 
+	playerNumber--;
+
+	let removeContainer = document.querySelector('.player-select.order.order3');
+	removeContainer.remove();
+}
+removePlayerBtn.onclick = removePlayerContainer;
+
+// START BUTTON
+function initGame() {
+	
 }
 
-addPlayerBtn.onclick = addPlayerContainer;
+
+document.getElementById("myButton").onclick = function () {
+    if (playerNumber < 2){
+        alert("There are no enough players, please add at least 2 players")
+    } else {
+        location.href = "/board/board.html";
+    }
+};
