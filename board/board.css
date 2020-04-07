@@ -18,6 +18,45 @@
 	background-repeat: no-repeat;
 }
 
+/*Player*/
+
+.player-container {
+	display: flex;
+	justify-content: center;
+}
+
+#circle1 {
+	width: 100px;
+	height: 100px;
+	background-color: blue;
+	border-radius: 100px;
+	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+#circle2 {
+	width: 100px;
+	height: 100px;
+	background-color: green;
+	border-radius: 100px;
+	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+#circle3 {
+	width: 100px;
+	height: 100px;
+	background-color: yellow;
+	border-radius: 100px;
+	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+#circle4 {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	border-radius: 100px;
+	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
 /*CARD GENERAL*/
 .event-member {
 	width: 250px;
@@ -98,7 +137,7 @@
 }
 
 .iconBlue {
-	fill: rgb(26, 39, 228);;
+	fill: rgb(26, 39, 228);
 	background-color: rgb(26, 39, 228);
 }
 
@@ -113,11 +152,9 @@
 }
 
 .iconViolet {
-	fill: rgb(179, 14, 179);;
+	fill: rgb(179, 14, 179);
 	background-color: rgb(179, 14, 179);
 }
-
-
 
 #nedStark {
 	height: 65%;
@@ -230,13 +267,6 @@
 	background-position: center;
 	filter: grayscale(50%);
 }
-
-
-
-
-
-
-
 
 #kings-landing {
 	background-image: url("/images/kingLanding.jpg");
