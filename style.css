@@ -42,71 +42,68 @@
 .order3 {
 	justify-content: center;
 }
-.player-select div{
+.player-select div {
 	width: 40%;
 }
 
-.player-select, .start-select {
+.player-select,
+.start-select {
 	margin-top: 20px;
 }
-
 
 /*BUTTONS*/
 
 .btn {
 	background-color: black;
 	color: white;
-	border : none;
+	border: none;
 	padding: 10px;
 	border-radius: 4px;
-	
 }
 
 button:hover {
-	background-color: #D3C5A7;
+	background-color: #d3c5a7;
 	color: black;
-  }
-
-button:active {
-	background-color: #D3C5A7;
-	transform: translateY(1px);
 }
 
+button:active {
+	background-color: #d3c5a7;
+	transform: translateY(1px);
+}
 
 /*START BTN*/
 
 .start-btn {
 	background-color: black;
 	color: white;
-	border : none;
+	border: none;
 	padding: 10px;
 	border-radius: 4px;
-	
 }
 
 button:hover {
-	background-color: #D3C5A7;
+	background-color: #d3c5a7;
 	color: black;
-  }
+}
 
 button:active {
-	background-color: #D3C5A7;
+	background-color: #d3c5a7;
 	transform: translateY(1px);
 }
 
 #start:hover {
-	background-color: #D3C5A7;
+	background-color: #d3c5a7;
 	color: black;
-  }
+}
 
 #start:active {
-	background-color: #D3C5A7;
+	background-color: #d3c5a7;
 	transform: translateY(1px);
 }
 
 /*INPUTS*/
 
-#name-input {
+.name-input {
 	padding: 5px;
 	width: 50%;
 	color: black;
@@ -120,11 +117,9 @@ button:active {
 
   */
 
-  #color-input {
+.color-input {
 	padding: 6px;
 	width: 20%;
 	color: white;
 	margin-left: 30px;
 }
-
-
