@@ -1,8 +1,7 @@
-import { players, test } from '../script.js';
-console.log(players);
-console.log(test);
+const localPlayers = localStorage.getItem('players');
+const playersData = JSON.parse(localPlayers);
 
-// console.log(players);
+console.log(playersData);
 // console.log(colors);
 
 // let player1 = {
@@ -35,6 +34,7 @@ class Members {
 		this.position = position;
 		this.damage = damage;
 		this.cost = cost;
+		this.member = 0;
 		this.owned = false;
 	}
 
@@ -121,45 +121,87 @@ class Player {
 	constructor(name, color) {
 		this.name = name;
 		this.color = color;
-		this.position = 0;
+		this.position = 0; // doit etre la position de l'id="card-0"
 		this.life = 1000;
 	}
 
-	diceMove() {
+	diceMove(player) {
 		let dice = 1 + Math.floor(6 * Math.random());
-		console.log('Valeur du de est à : ' + dice);
+		console.log('Valeur du dice est : ' + dice);
 		let oldPosition = this.position;
 
 		this.position = (this.position + dice) % board.length;
-		console.log('Position du joueur est : ' + this.position);
+		console.log('La position de ' + this.name + ' est : ' + this.position);
+		console.log(document.querySelector("#card-1 .player1-color"))
+		console.log(player)
+		document.querySelector(`#card-${oldPosition} .player${player + 1 }-color`).style.visibility = 'hidden';
+		// console.log(oldCard);
 
-		let oldCard = document.getElementsByClassName('card-member')[oldPosition];
-		console.log(oldCard);
-		oldCard.querySelector('.player1-color').style.visibility = 'hidden';
+		document.querySelector(`#card-${this.position} .player${player + 1}-color`).style.visibility = 'visible';
+		// currentCard.querySelector('.player1-color').style.visibility = 'visible';
 
-		let currentCard = document.getElementsByClassName('card-member')[this.position];
-		console.log(currentCard);
-		currentCard.querySelector('.player1-color').style.visibility = 'visible';
+		// ajouter les conditions d'achat ici 
+
 	}
+
+	
 
 	damage() {
 		this.life -= board[this.position].damage;
-		console.log('Vie est à : ' + this.life);
+		console.log(this.name + ' a pris ' + board[this.position].damage + ' de degat et sa vie est à : ' + this.life);
 	}
 
 	// Method displayInfo
 	displayInfo() {
-		//console.log(`${this.name} rolls ${dice} is at case position ${this.position} and has ${this.life} left`);
+		//console.log(`${this.name}is at case position ${this.position} and has ${this.life} left`);
 		console.log('---------------------------------------');
 	}
 }
+const players = [];
+playersData.forEach((player,index) => {
+	players.push(new Player(player.name, player.color));
 
-let player1 = new Player('Vladimir', 'red');
+	// inserer les couleurs de cost et damage
+
+	document.querySelectorAll(`.player${index + 1}-color`).forEach(circle => {
+		circle.style.backgroundColor = player.color;
+	})
+});
+//let player1 = new Player(players[0].name, players[0].color);
+
+console.log(players[0].name);
+console.log(players[1].name);
+// console.log(players[2].name)
+// console.log(players[3].name)
+
+// console.log(players[0].color)
+
+// PRINT CARDS
+
+// PRINT NAMES
+
+let turnName = document.getElementById('player-play');
+turnName.innerHTML = players[0].name;
+
+let scoreName = document.getElementById('play1');
+scoreName.innerHTML = players[0].name;
+
+// PRINT COLOR
+
+// boucle array player query select
+ let player1Color = document.getElementsByClassName("player1-color")
+//console.log(player1Color)
+
+// document.getElementsByClassName("player2-color").style.backgroundColor = "yellow" ;//players[1].color;
 
 // EVENT ON CLICK TO MAKE MOUVEMENT EXECUTE
+let turn = 0;
 
 document.getElementById('dice-btn').addEventListener('click', function() {
-	player1.diceMove();
-	player1.damage();
-	player1.displayInfo();
+	let currentPlayer = players[turn % players.length];
+	currentPlayer.diceMove(turn % players.length);
+	// check achat 
+	currentPlayer.damage();
+	currentPlayer.displayInfo();
+	turn++; // recommence le tour par tour
 });

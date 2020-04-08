@@ -44,7 +44,8 @@ window.addEventListener('load', () => {
 				//players.push(playerName)
 				players.push({ name: playerName, color: playerColor });
 			}
-            console.log(players)
+			console.log(players)
+			localStorage.setItem("players", JSON.stringify(players))
 			location.href = "./board/board.html";
 		}
 	};
