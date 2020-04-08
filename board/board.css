@@ -23,9 +23,10 @@
 .player-container {
 	display: flex;
 	justify-content: center;
+	position: absolute;
 }
 
-#circle1 {
+.player1-color {
 	width: 100px;
 	height: 100px;
 	background-color: blue;
@@ -33,7 +34,7 @@
 	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
 }
 
-#circle2 {
+.player2-color {
 	width: 100px;
 	height: 100px;
 	background-color: green;
@@ -41,7 +42,7 @@
 	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
 }
 
-#circle3 {
+.player3-color {
 	width: 100px;
 	height: 100px;
 	background-color: yellow;
@@ -49,7 +50,7 @@
 	box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.4);
 }
 
-#circle4 {
+.player4-color {
 	width: 100px;
 	height: 100px;
 	background-color: red;
@@ -80,13 +81,14 @@
 	margin: 50px;
 	border-radius: 6px;
 }
-
+/*
 .card-member2 {
 	background-color: white;
 	width: 220px;
 	height: 350px;
 	border-radius: 6px;
 }
+*/
 
 .inline {
 	display: flex;
@@ -380,7 +382,7 @@
 
 /* BUTTONS */
 
-#buy-btn {
+#buy-btn, #dice-btn {
 	background-color: black;
 	color: white;
 	border: none;
@@ -396,12 +398,12 @@
 	border-radius: 4px;
 }
 
-#buy-btn:hover {
+#buy-btn, #dice-btn:hover {
 	background-color: #d3c5a7;
 	color: black;
 }
 
-#buy-btn:active {
+#buy-btn, #dice-btn:active {
 	background-color: #d3c5a7;
 	transform: translateY(1px);
 }
@@ -419,5 +421,11 @@
 #player-play {
 	font-size: 30px;
 	color: red;
+	font-weight: 600;
+}
+
+#message-play {
+	font-size: 30px;
+	color: black;
 	font-weight: 600;
 }

@@ -1,5 +1,6 @@
-import { players } from '../script.js';
-import { colors } from '../script.js';
+import { players, test } from '../script.js';
+console.log(players);
+console.log(test);
 
 // console.log(players);
 // console.log(colors);
@@ -22,8 +23,8 @@ class Events {
 		this.name = name;
 		this.position = position;
 		this.damage = damage;
-        this.gain = gain;
-        this.special = true;
+		this.gain = gain;
+		this.special = true;
 	}
 }
 
@@ -35,14 +36,12 @@ class Members {
 		this.damage = damage;
 		this.cost = cost;
 		this.owned = false;
-    }
-    
-    damageMember(){
-        return this.damage
-    }
+	}
+
+	damageMember() {
+		return this.damage;
+	}
 }
-
-
 
 // MEMBERS/EVENTS POSITIONS
 
@@ -126,74 +125,41 @@ class Player {
 		this.life = 1000;
 	}
 
-	move() {
+	diceMove() {
 		let dice = 1 + Math.floor(6 * Math.random());
-        this.position = (this.position + dice) % board.length;
-        // reconnaitre le pion
-        // position dans le html
+		console.log('Valeur du de est à : ' + dice);
+		let oldPosition = this.position;
 
-        // this.life -= ned.damageMember()
-        console.log(dice)
-        console.log("position=" + this.position)
-        // 
-        this.life -= board[this.position].damage
-        
-        //console.log(ned.damageMember())
+		this.position = (this.position + dice) % board.length;
+		console.log('Position du joueur est : ' + this.position);
 
+		let oldCard = document.getElementsByClassName('card-member')[oldPosition];
+		console.log(oldCard);
+		oldCard.querySelector('.player1-color').style.visibility = 'hidden';
 
-		// si owned = false - achat possible : owned by player.name
-		// dans ce cas pas de degat sinon
-		// VIE -= Damage de la carte
+		let currentCard = document.getElementsByClassName('card-member')[this.position];
+		console.log(currentCard);
+		currentCard.querySelector('.player1-color').style.visibility = 'visible';
+	}
 
-		// for (let i = 0; i < board[this.position].length; i++) {
-		//     this.life -= board[i].damage;
-		// }
-
-		if (this.life < 0) {
-		  console.log(`Game over for ${this.name}.`);
-		}
+	damage() {
+		this.life -= board[this.position].damage;
+		console.log('Vie est à : ' + this.life);
 	}
 
 	// Method displayInfo
 	displayInfo() {
-		console.log(`${this.name} is at position ${this.position} and has ${this.life}`);
+		//console.log(`${this.name} rolls ${dice} is at case position ${this.position} and has ${this.life} left`);
+		console.log('---------------------------------------');
 	}
 }
+
 let player1 = new Player('Vladimir', 'red');
-
-// MOUVEMENT
-
-player1.move();
-player1.displayInfo();
-player1.move();
-player1.displayInfo();
-player1.move();
-player1.displayInfo();
-// player1.move();
-// player1.displayInfo();
-// player1.move();
-// player1.displayInfo();
-// player1.move();
-// player1.displayInfo();
-// player1.move();
-// player1.displayInfo();
-// player1.move();
-// player1.displayInfo();
-
-
-//   console.log(board[0].damage)
-console.log(board[1].damage)
-//   console.log(board[2].damage)
-//   console.log(board[3].damage)
-
-
-let damage = Object.values(board)['0'];
-console.log(damage);
-
-console.log(ned.damageMember())
-
 
 // EVENT ON CLICK TO MAKE MOUVEMENT EXECUTE
 
-
-
+document.getElementById('dice-btn').addEventListener('click', function() {
+	player1.diceMove();
+	player1.damage();
+	player1.displayInfo();
+});
