@@ -20,10 +20,17 @@
 
 /*Player*/
 
+.play1,
+.play2,
+.play3,
+.play4 {
+	font-weight: 600;
+	font-size: 25px;
+}
+
 .player-container {
 	display: flex;
 	justify-content: center;
-	position: absolute;
 }
 
 .player1-color {
@@ -352,6 +359,7 @@
 	align-items: center;
 	align-content: center;
 	opacity: 0.7;
+	margin-bottom: 50px;
 }
 
 .container-player {
@@ -382,7 +390,8 @@
 
 /* BUTTONS */
 
-#buy-btn, #dice-btn {
+#buy-btn,
+#dice-btn {
 	background-color: black;
 	color: white;
 	border: none;
@@ -398,12 +407,14 @@
 	border-radius: 4px;
 }
 
-#buy-btn, #dice-btn:hover {
+#buy-btn,
+#dice-btn:hover {
 	background-color: #d3c5a7;
 	color: black;
 }
 
-#buy-btn, #dice-btn:active {
+#buy-btn,
+#dice-btn:active {
 	background-color: #d3c5a7;
 	transform: translateY(1px);
 }

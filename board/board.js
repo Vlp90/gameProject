@@ -2,14 +2,6 @@ const localPlayers = localStorage.getItem('players');
 const playersData = JSON.parse(localPlayers);
 
 console.log(playersData);
-// console.log(colors);
-
-// let player1 = {
-// 	name: 'players',
-// 	color: 'colors'
-// };
-
-// console.log(player1);
 
 // BOARD ARRAY
 
@@ -116,7 +108,6 @@ console.log(board);
 
 // PLAYERS
 
-// Remplacer le Player constructor par valeurs des Joueurs (name et color) mais garder le reste
 class Player {
 	constructor(name, color) {
 		this.name = name;
@@ -132,19 +123,15 @@ class Player {
 
 		this.position = (this.position + dice) % board.length;
 		console.log('La position de ' + this.name + ' est : ' + this.position);
-		console.log(document.querySelector("#card-1 .player1-color"))
-		console.log(player)
-		document.querySelector(`#card-${oldPosition} .player${player + 1 }-color`).style.visibility = 'hidden';
-		// console.log(oldCard);
+		console.log(document.querySelector('#card-1 .player1-color'));
+		console.log(player);
+		document.querySelector(`#card-${oldPosition} .player${player + 1}-color`).style.visibility = 'hidden';
 
 		document.querySelector(`#card-${this.position} .player${player + 1}-color`).style.visibility = 'visible';
 		// currentCard.querySelector('.player1-color').style.visibility = 'visible';
 
-		// ajouter les conditions d'achat ici 
-
+		// ajouter les conditions d'achat ici
 	}
-
-	
 
 	damage() {
 		this.life -= board[this.position].damage;
@@ -153,43 +140,45 @@ class Player {
 
 	// Method displayInfo
 	displayInfo() {
-		//console.log(`${this.name}is at case position ${this.position} and has ${this.life} left`);
 		console.log('---------------------------------------');
 	}
 }
 const players = [];
-playersData.forEach((player,index) => {
+playersData.forEach((player, index) => {
 	players.push(new Player(player.name, player.color));
 
-	// inserer les couleurs de cost et damage
+	// COULEURS SCORE
+	document.querySelectorAll(`.colorPick${index + 1}`).forEach((color) => {
+		color.style.fill = player.color;
+		color.style.color = player.color;
+	});
 
-	document.querySelectorAll(`.player${index + 1}-color`).forEach(circle => {
+	document.querySelectorAll(`.player${index + 1}-color`).forEach((circle) => {
 		circle.style.backgroundColor = player.color;
-	})
+	});
+
+	document.querySelectorAll(`.play${index + 1}`).forEach((players) => {
+		players.style.color = player.color;
+		players.innerHTML = player.name;
+	});
+
+	// PLAY TURN
+
+	document.querySelectorAll(`#player-play`).forEach((turn) => {
+		turn.style.color = player.color;
+		turn.textContent = player.name;
+	});
 });
-//let player1 = new Player(players[0].name, players[0].color);
 
-console.log(players[0].name);
-console.log(players[1].name);
-// console.log(players[2].name)
-// console.log(players[3].name)
+// PRINT CARDS VALUES
 
-// console.log(players[0].color)
-
-// PRINT CARDS
-
-// PRINT NAMES
-
-let turnName = document.getElementById('player-play');
-turnName.innerHTML = players[0].name;
-
-let scoreName = document.getElementById('play1');
-scoreName.innerHTML = players[0].name;
+// let turnName = document.getElementById('player-play');
+// turnName.innerHTML = players[0].name;
 
 // PRINT COLOR
 
 // boucle array player query select
- let player1Color = document.getElementsByClassName("player1-color")
+let player1Color = document.getElementsByClassName('player1-color');
 //console.log(player1Color)
 
 // document.getElementsByClassName("player2-color").style.backgroundColor = "yellow" ;//players[1].color;
@@ -200,7 +189,7 @@ let turn = 0;
 document.getElementById('dice-btn').addEventListener('click', function() {
 	let currentPlayer = players[turn % players.length];
 	currentPlayer.diceMove(turn % players.length);
-	// check achat 
+	// check achat
 	currentPlayer.damage();
 	currentPlayer.displayInfo();
 	turn++; // recommence le tour par tour
