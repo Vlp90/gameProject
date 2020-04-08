@@ -62,8 +62,8 @@ window.addEventListener("load", ()=> {
 
 export {players}
 export {colors}
-// console.log(players);
-// console.log(colors);
+console.log(players);
+console.log(colors);
 
 
 
