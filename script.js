@@ -1,6 +1,6 @@
 export let players = [];
 
-export let test = "test"
+export let test = 'test';
 
 window.addEventListener('load', () => {
 	const addPlayerBtn = document.getElementById('addPlayer');
@@ -21,6 +21,7 @@ window.addEventListener('load', () => {
 			'<div class = "player-select order order3"><input class="name-input" type="text" placeholder="Enter Playername"><div class="order2"><label>Pick your color</label><input class="color-input" type="color"></div></div>'
 		);
 	}
+
 	addPlayerBtn.onclick = addPlayerContainer;
 
 	// REMOVE PLAYER CONTAINER
@@ -44,10 +45,9 @@ window.addEventListener('load', () => {
 				//players.push(playerName)
 				players.push({ name: playerName, color: playerColor });
 			}
-			console.log(players)
-			localStorage.setItem("players", JSON.stringify(players))
-			location.href = "./board/board.html";
+			console.log(players);
+			localStorage.setItem('players', JSON.stringify(players));
+			location.href = './board/board.html';
 		}
 	};
 });
-
