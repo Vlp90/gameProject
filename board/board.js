@@ -21,10 +21,7 @@ class Events {
 	drawCard() {
 		document.querySelector(`#card-${this.position} .numGainEvent`).innerHTML = ' + ' + this.gain;
 		//document.querySelector(`#card-${this.position} .numGainEvent`).textContent = ' + ' + this.damage;
-
 	}
-
-
 }
 
 class Members {
@@ -116,8 +113,6 @@ board.push(rhaegar);
 let daenerys = new Members('Daenerys', 'Targaryen', 17, 1000, 2000, false);
 board.push(daenerys);
 
-
-
 // INITIALISATION DES PARAMETRES
 
 board.forEach(function(element) {
@@ -130,8 +125,6 @@ board.forEach(function(element) {
 console.log(board);
 console.log(playersData);
 
-
-
 // PLAYERS
 
 class Player {
@@ -139,10 +132,9 @@ class Player {
 		this.name = name;
 		this.color = color;
 		this.position = 0; // doit etre la position de l'id="card-0"
-		this.life = 1000;
+		this.life = 2000;
 		this.own = 0;
 	}
-
 
 	diceMove(player) {
 		console.log(player);
@@ -165,9 +157,6 @@ class Player {
 		// ajouter les conditions d'achat ici
 	}
 
-
-
-
 	damage(player) {
 		this.life -= board[this.position].damage;
 		console.log(this.name + ' a pris ' + board[this.position].damage + ' de degat et sa vie est à : ' + this.life);
@@ -183,7 +172,73 @@ class Player {
 		}
 	}
 
-	cardOwner() {}
+	buyCard(player) {
+		let card = board[this.position];
+
+		if (card.owned === false && this.life > card.cost) {
+			let elementTarget1 = document.querySelector('.middle-center-right');
+			elementTarget1.innerHTML = `<div class= middle-center-right>
+
+			<div class="player-init">
+				<p id='player-play'>${players[player].name}</p>
+				<p id='message-play2'>Would you buy the member ?</p>
+			</div>
+		
+			<div class='button-action'>
+				<button id="buy-btn" class="next">Buy member</button>
+				<button id="cancel-btn" class="next">Cancel</button>
+			</div>
+			</div>`;
+
+			const buyBtn = document.getElementById('buy-btn');
+			const cancelBtn = document.getElementById('cancel-btn');
+
+			const nextBtn = document.querySelectorAll('.next');
+
+			buyBtn.onclick = function() {
+				card.owned = true;
+				this.life -= card.cost;
+				this.own += 1;
+			};
+
+			nextBtn.forEach((btn) => {
+				btn.onclick = function() {
+					let elementTarget2 = document.querySelector('.middle-center-right');
+					elementTarget2.innerHTML = ` <div class= middle-center-right>
+	
+					<div class="player-init">
+						<p id='player-play'>Player's name</p>
+					
+						<p id='message-play'>Its time to play</p>
+					</div>
+				
+					<div class='button-action'>
+						<button id="dice-btn" class="dice-btn">Roll Dices</button>
+					</div>
+					</div>`;
+					document.getElementById('dice-btn').addEventListener('click', function() {
+						console.log('heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+						let currentPlayer = players[turn % players.length];
+						// remplacer element du DOM par currentPlayer.name
+						document.querySelectorAll(`#player-play`).forEach((turn) => {
+							turn.style.color = currentPlayer.color;
+							turn.textContent = currentPlayer.name;
+						});
+						currentPlayer.diceMove(turn % players.length);
+						currentPlayer.buyCard(turn % players.length);
+						// check achat
+						currentPlayer.damage(turn % players.length);
+						currentPlayer.displayInfo();
+						turn++; // recommence le tour par tour
+					});
+				};
+			});
+
+		} else if (card.owned === true) {
+			this.life -= card.damage;
+			console.log('achat impossible');
+		}
+	}
 
 	// Method displayInfo
 	displayInfo() {
@@ -191,16 +246,11 @@ class Player {
 	}
 }
 
-
 // INIT POSITION JOUEUR
 // function positionPlayers(player) {
 // 	console.log(player)
 // 	document.querySelector(`#card-${this.position} .player${player}-color`).style.visibility = 'visible';
 // };
-
-
-
-
 
 const players = [];
 playersData.forEach((player, index) => {
@@ -256,37 +306,22 @@ let player1Color = document.getElementsByClassName('player1-color');
 // EVENT ON CLICK TO MAKE MOUVEMENT EXECUTE
 let turn = 0;
 
-document.getElementById('dice-btn').addEventListener('click', function() {
-	let currentPlayer = players[turn % players.length];
-	// remplacer element du DOM par currentPlayer.name
-
-	document.querySelectorAll(`#player-play`).forEach((turn) => {
-		turn.style.color = currentPlayer.color;
-		turn.textContent = currentPlayer.name;
+function setUpRollDice() {
+	document.getElementById('dice-btn').addEventListener('click', function() {
+		console.log('heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+		let currentPlayer = players[turn % players.length];
+		// remplacer element du DOM par currentPlayer.name
+		document.querySelectorAll(`#player-play`).forEach((turn) => {
+			turn.style.color = currentPlayer.color;
+			turn.textContent = currentPlayer.name;
+		});
+		currentPlayer.diceMove(turn % players.length);
+		currentPlayer.buyCard(turn % players.length);
+		// check achat
+		currentPlayer.damage(turn % players.length);
+		currentPlayer.displayInfo();
+		turn++; // recommence le tour par tour
 	});
+}
 
-	// document.getElementById('player-play') = currentPlayer.name;
-	//  console.log(currentPlayer);
-	//  console.log(currentPlayer.name);
-	 console.log("ALERTE")
-	 console.log("Player sur la case " + board[turn % players.length].name)
-	 console.log("Quelqu'un possede la carte ? " + board[turn % players.length].owned)
-	 console.log("Player argent " + currentPlayer.life);
-	 console.log("Possession de carte " + currentPlayer.own);
-
-
-	 // CONDITIONS ACHAT
-
-	//  if (document.getElementById('buy-btn').onclick) {
-	// 	currentPlayer.own =+ 1;
-	//  document.getElementsByClassName('sub-player-name') = currentPlayer.name + currentPlayer.color
-	//  }  
-	
-
-
-	currentPlayer.diceMove(turn % players.length);
-	// check achat
-	currentPlayer.damage(turn % players.length);
-	currentPlayer.displayInfo();
-	turn++; // recommence le tour par tour
-});
+setUpRollDice();
