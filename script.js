@@ -50,4 +50,9 @@ window.addEventListener('load', () => {
 			location.href = './board/board.html';
 		}
 	};
+
+	
 });
+
+const audio = new Audio('./musique/theme.mp3');
+	audio.play();

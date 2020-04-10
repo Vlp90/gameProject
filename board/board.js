@@ -1,7 +1,23 @@
 const localPlayers = localStorage.getItem('players');
 const playersData = JSON.parse(localPlayers);
 
-console.log(playersData);
+// constants
+const buyMessage = 'Would you buy the member ?';
+const playTimeMessage = 'Its time to play';
+
+// Elements
+const gameInProgressElement = document.getElementById('game-in-progress');
+const ironThroneElement = document.getElementById('iron-throne');
+const playerElement = document.getElementById('player-play');
+const messageElement = document.getElementById('message-play');
+const buttonBuyElement = document.getElementById('button-action-buy');
+const buttonRollDiceElement = document.getElementById('button-action-play');
+
+// init
+ironThroneElement.style.display = 'none';
+buttonBuyElement.style.display = 'none';
+buttonRollDiceElement.style.display = 'block';
+messageElement.innerText = playTimeMessage;
 
 // BOARD ARRAY
 
@@ -20,27 +36,39 @@ class Events {
 
 	drawCard() {
 		document.querySelector(`#card-${this.position} .numGainEvent`).innerHTML = ' + ' + this.gain;
-		//document.querySelector(`#card-${this.position} .numGainEvent`).textContent = ' + ' + this.damage;
+		// document.querySelector(`#card-${this.position} .numDamageEvent`).innerHTML = ' + ' + this.damage;
 	}
 }
 
 class Members {
-	constructor(name, family, position, damage, cost, owned) {
+	constructor(name, family, position, damage, cost) {
 		this.name = name;
 		this.family = family;
 		this.position = position;
 		this.damage = damage;
 		this.cost = cost;
 		this.member = 0;
-		this.owned = owned;
+		this.owner = undefined;
 	}
 
-	damageMember() {
-		return this.damage;
+	setOwner(owner) {
+		this.owner = owner;
+
+		document.querySelector(`#card-${this.position} .sub-player-name`).innerText = owner ? owner.name : 'Nobody';
+		document.querySelector(`#card-${this.position} .sub-player-name`).style.color = owner ? owner.color : 'inherit';
 	}
+
 	drawCard() {
 		document.querySelector(`#card-${this.position} .numDamage`).innerHTML = this.damage;
 		document.querySelector(`#card-${this.position} .numCost`).innerHTML = this.cost;
+	}
+
+	healOwner(playerIndex) {
+		this.owner.life += this.damage;
+
+		document.getElementsByClassName('life-player')[playerIndex].innerHTML = this.owner.life;
+
+		console.log(`${this.owner.name} gain ${this.damage} hp`);
 	}
 }
 
@@ -51,16 +79,16 @@ class Members {
 let kinglanding = new Events('KingsLanding', 0, 0, 500);
 board.push(kinglanding);
 
-let ned = new Members('Ned', 'Stark', 1, 500, 1000, false);
+let ned = new Members('Ned', 'Stark', 1, 500, 1000);
 board.push(ned);
 
-let sansa = new Members('Sansa', 'Stark', 2, 300, 800, false);
+let sansa = new Members('Sansa', 'Stark', 2, 300, 800);
 board.push(sansa);
 
-let robb = new Members('Robb', 'Stark', 3, 200, 400, false);
+let robb = new Members('Robb', 'Stark', 3, 200, 400);
 board.push(robb);
 
-let arya = new Members('Arya', 'Stark', 4, 800, 1200, false);
+let arya = new Members('Arya', 'Stark', 4, 800, 1200);
 board.push(arya);
 
 // EVENT
@@ -69,32 +97,32 @@ board.push(nerraBattle);
 
 // Baratheon
 
-let stannis = new Members('Stannis', 'Baratheon', 6, 300, 800, false);
+let stannis = new Members('Stannis', 'Baratheon', 6, 300, 800);
 board.push(stannis);
 
-let rendy = new Members('Rendy', 'Baratheon', 7, 200, 500, false);
+let rendy = new Members('Rendy', 'Baratheon', 7, 200, 500);
 board.push(rendy);
 
-let robert = new Members('Robert', 'Baratheon', 8, 300, 600, false);
+let robert = new Members('Robert', 'Baratheon', 8, 300, 600);
 board.push(robert);
 
 // EVENT
 
-let dragonsBattle = new Events('Dragons Battle', 9, 0, 700, false);
+let dragonsBattle = new Events('Dragons Battle', 9, 0, 700);
 board.push(dragonsBattle);
 
 // Lannister
 
-let tyrion = new Members('Tyrion', 'Lannister', 10, 600, 1300, false);
+let tyrion = new Members('Tyrion', 'Lannister', 10, 600, 1300);
 board.push(tyrion);
 
-let cersei = new Members('Cersei ', 'Lannister', 11, 900, 1800, false);
+let cersei = new Members('Cersei ', 'Lannister', 11, 900, 1800);
 board.push(cersei);
 
-let jaime = new Members('Jaime', 'Lannister', 12, 650, 1300, false);
+let jaime = new Members('Jaime', 'Lannister', 12, 650, 1300);
 board.push(jaime);
 
-let lancel = new Members('Lancel', 'Lannister', 13, 200, 500, false);
+let lancel = new Members('Lancel', 'Lannister', 13, 200, 500);
 board.push(lancel);
 
 // EVENT
@@ -104,13 +132,13 @@ board.push(walkersBattle);
 
 // Targaryen
 
-let viserys = new Members('Viserys', 'Targaryen', 15, 250, 400, false);
+let viserys = new Members('Viserys', 'Targaryen', 15, 250, 400);
 board.push(viserys);
 
-let rhaegar = new Members('Rhaegar ', 'Targaryen', 16, 400, 800, false);
+let rhaegar = new Members('Rhaegar ', 'Targaryen', 16, 400, 800);
 board.push(rhaegar);
 
-let daenerys = new Members('Daenerys', 'Targaryen', 17, 1000, 2000, false);
+let daenerys = new Members('Daenerys', 'Targaryen', 17, 1000, 2000);
 board.push(daenerys);
 
 // INITIALISATION DES PARAMETRES
@@ -119,9 +147,12 @@ board.forEach(function(element) {
 	element.drawCard();
 });
 
-// playersData.forEach(function(position) {
-// 	position.positionPlayers();
+// playersData.forEach(function(element) {
+// 	console.log(element)
+// 	element.init();
+
 // });
+
 console.log(board);
 console.log(playersData);
 
@@ -133,11 +164,14 @@ class Player {
 		this.color = color;
 		this.position = 0; // doit etre la position de l'id="card-0"
 		this.life = 2000;
-		this.own = 0;
+		this.cards = [];
 	}
 
-	diceMove(player) {
-		console.log(player);
+	isDead() {
+		return this.life <= 0;
+	}
+
+	diceMove(playerIndex) {
 		let dice = 1 + Math.floor(6 * Math.random());
 		console.log('Valeur du dice est : ' + dice);
 		let oldPosition = this.position;
@@ -150,99 +184,89 @@ class Player {
 		// console.log("ALERTE")
 		// console.log(player)
 
-		document.querySelector(`#card-${oldPosition} .player${player + 1}-color`).style.visibility = 'hidden';
-		document.querySelector(`#card-${this.position} .player${player + 1}-color`).style.visibility = 'visible';
+		document.querySelector(`#card-${oldPosition} .player${playerIndex + 1}-color`).style.visibility = 'hidden';
+		document.querySelector(`#card-${this.position} .player${playerIndex + 1}-color`).style.visibility = 'visible';
 		// currentCard.querySelector('.player1-color').style.visibility = 'visible';
 
 		// ajouter les conditions d'achat ici
 	}
 
-	damage(player) {
-		this.life -= board[this.position].damage;
-		console.log(this.name + ' a pris ' + board[this.position].damage + ' de degat et sa vie est à : ' + this.life);
-
-		let scorePlayer = document.getElementsByClassName('life-player')[player];
-		scorePlayer.innerHTML = ': ' + this.life;
+	damage(card, playerIndex) {
+		this.life -= card.damage;
+		if (card.owner) {
+			card.healOwner(playerIndex);
+		}
+		console.log(this.name + ' a pris ' + card.damage + ' de degat et sa vie est à : ' + this.life);
 
 		// Game Over
-		if (this.life < 0) {
-			let gameOverStatus = document.getElementsByClassName('GameOver')[player];
+		if (this.life <= 0) {
+			let gameOverStatus = document.getElementsByClassName('GameOver')[playerIndex];
 			gameOverStatus.innerHTML = 'Game Over ';
 			console.log(`Game over for ${this.name}.`);
+		} else {
+			let scorePlayer = document.getElementsByClassName('life-player')[playerIndex];
+			scorePlayer.innerHTML = this.life;
 		}
 	}
 
-	buyCard(player) {
-		let card = board[this.position];
-
-		if (card.owned === false && this.life > card.cost) {
-			let elementTarget1 = document.querySelector('.middle-center-right');
-			elementTarget1.innerHTML = `<div class= middle-center-right>
-
-			<div class="player-init">
-				<p id='player-play'>${players[player].name}</p>
-				<p id='message-play2'>Would you buy the member ?</p>
-			</div>
-		
-			<div class='button-action'>
-				<button id="buy-btn" class="next">Buy member</button>
-				<button id="cancel-btn" class="next">Cancel</button>
-			</div>
-			</div>`;
-
-			const buyBtn = document.getElementById('buy-btn');
-			const cancelBtn = document.getElementById('cancel-btn');
-
-			const nextBtn = document.querySelectorAll('.next');
-
-			buyBtn.onclick = function() {
-				card.owned = true;
-				this.life -= card.cost;
-				this.own += 1;
-			};
-
-			nextBtn.forEach((btn) => {
-				btn.onclick = function() {
-					let elementTarget2 = document.querySelector('.middle-center-right');
-					elementTarget2.innerHTML = ` <div class= middle-center-right>
-	
-					<div class="player-init">
-						<p id='player-play'>Player's name</p>
-					
-						<p id='message-play'>Its time to play</p>
-					</div>
-				
-					<div class='button-action'>
-						<button id="dice-btn" class="dice-btn">Roll Dices</button>
-					</div>
-					</div>`;
-					document.getElementById('dice-btn').addEventListener('click', function() {
-						console.log('heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
-						let currentPlayer = players[turn % players.length];
-						// remplacer element du DOM par currentPlayer.name
-						document.querySelectorAll(`#player-play`).forEach((turn) => {
-							turn.style.color = currentPlayer.color;
-							turn.textContent = currentPlayer.name;
-						});
-						currentPlayer.diceMove(turn % players.length);
-						currentPlayer.buyCard(turn % players.length);
-						// check achat
-						currentPlayer.damage(turn % players.length);
-						currentPlayer.displayInfo();
-						turn++; // recommence le tour par tour
-					});
-				};
-			});
-
-		} else if (card.owned === true) {
-			this.life -= card.damage;
-			console.log('achat impossible');
+	heal(card, playerIndex) {
+		if (this.life > 0) {
+			this.life += card.gain;
+			document.getElementsByClassName('life-player')[playerIndex].innerHTML = this.life;
+			console.log(`${this.name} gain ${card.gain} hp`);
 		}
+	}
+
+	buyCard(card, playerIndex) {
+		messageElement.textContent = buyMessage;
+		buttonBuyElement.style.display = 'block';
+		buttonRollDiceElement.style.display = 'none';
+
+		function commonOnClick() {
+			buttonBuyElement.style.display = 'none';
+			buttonRollDiceElement.style.display = 'block';
+			messageElement.innerText = playTimeMessage;
+
+			let currentPlayer = players[playerIndex];
+			// remplacer element du DOM par currentPlayer.name
+
+			playerElement.style.color = currentPlayer.color;
+			playerElement.innerText = currentPlayer.name;
+		}
+
+		document.getElementById('buy-btn').onclick = () => {
+			this.cards.push(card);
+			this.life -= card.cost;
+			this.own += 1;
+			card.setOwner(this);
+
+			document.getElementsByClassName('life-player')[playerIndex].innerHTML = this.life;
+			document.getElementsByClassName('cardOwned-player')[playerIndex].innerHTML = this.cards.length;
+
+			commonOnClick();
+		};
+
+		document.getElementById('cancel-btn').onclick = commonOnClick;
 	}
 
 	// Method displayInfo
 	displayInfo() {
 		console.log('---------------------------------------');
+	}
+
+	delete(playerIndex) {
+		this.cards.forEach((card) => {
+			card.setOwner(undefined);
+		});
+		document.querySelector(`#card-${this.position} .player${playerIndex + 1}-color`).style.visibility = 'hidden';
+
+		const nextPlayers = [];
+		players.forEach((player, index) => {
+			if (index !== playerIndex) {
+				nextPlayers.push(player);
+			}
+		});
+		players = nextPlayers;
 	}
 }
 
@@ -252,9 +276,13 @@ class Player {
 // 	document.querySelector(`#card-${this.position} .player${player}-color`).style.visibility = 'visible';
 // };
 
-const players = [];
+let players = [];
 playersData.forEach((player, index) => {
-	players.push(new Player(player.name, player.color));
+	const currentPlayer = new Player(player.name, player.color);
+	players.push(currentPlayer);
+
+	document.querySelector(`#card-0 .player${index + 1}-color`).style.visibility = 'visible';
+	document.getElementsByClassName('life-player')[index].innerHTML = currentPlayer.life;
 
 	// COULEURS SCORE
 	document.querySelectorAll(`.colorPick${index + 1}`).forEach((color) => {
@@ -270,14 +298,12 @@ playersData.forEach((player, index) => {
 		players.style.color = player.color;
 		players.innerHTML = player.name;
 	});
-
-	// PLAY TURN
-	// NAME DONT CHANGE
-	document.querySelectorAll(`#player-play`).forEach((turn) => {
-		turn.style.color = player.color;
-		turn.textContent = player.name;
-	});
 });
+
+// PLAY TURN
+// NAME DONT CHANGE
+document.getElementById(`player-play`).style.color = players[0].color;
+document.getElementById(`player-play`).textContent = players[0].name;
 
 // PRINT SCORE
 
@@ -304,24 +330,66 @@ let player1Color = document.getElementsByClassName('player1-color');
 // document.getElementsByClassName("player2-color").style.backgroundColor = "yellow" ;//players[1].color;
 
 // EVENT ON CLICK TO MAKE MOUVEMENT EXECUTE
+
+// window.addEventListener('load', () => {
+
+// }
+
 let turn = 0;
 
+function play() {
+	const playerIndex = turn % players.length;
+	let currentPlayer = players[playerIndex];
+	// remplacer element du DOM par currentPlayer.name
+
+	playerElement.style.color = currentPlayer.color;
+	playerElement.textContent = currentPlayer.name;
+
+	currentPlayer.diceMove(playerIndex);
+	let card = board[currentPlayer.position];
+
+	if (!card.owner && !card.special && currentPlayer.life > card.cost) {
+		currentPlayer.buyCard(card, playerIndex);
+	} else {
+		console.log('achat impossible !');
+		console.log((turn + 1) % players.length);
+		const nextPlayer = players[(turn + 1) % players.length];
+		playerElement.style.color = nextPlayer.color;
+		playerElement.textContent = nextPlayer.name;
+	}
+
+	// check achat
+	if (
+		(!currentPlayer.cards.find((ownedCard) => ownedCard.position === card.position) && card.owner) ||
+		card.special
+	) {
+		currentPlayer.damage(card, playerIndex);
+		if (card.gain) {
+			currentPlayer.heal(card, playerIndex);
+		}
+	}
+
+	currentPlayer.displayInfo();
+
+	if (currentPlayer.isDead()) {
+		currentPlayer.delete(playerIndex);
+	}
+
+	if (players.length === 1) {
+		document.getElementById('winner-player-name').innerText = players[0].name;
+		gameInProgressElement.style.display = 'none';
+		ironThroneElement.style.display = 'block';
+	} else {
+		turn++;
+	}
+}
+
 function setUpRollDice() {
-	document.getElementById('dice-btn').addEventListener('click', function() {
-		console.log('heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
-		let currentPlayer = players[turn % players.length];
-		// remplacer element du DOM par currentPlayer.name
-		document.querySelectorAll(`#player-play`).forEach((turn) => {
-			turn.style.color = currentPlayer.color;
-			turn.textContent = currentPlayer.name;
-		});
-		currentPlayer.diceMove(turn % players.length);
-		currentPlayer.buyCard(turn % players.length);
-		// check achat
-		currentPlayer.damage(turn % players.length);
-		currentPlayer.displayInfo();
-		turn++; // recommence le tour par tour
-	});
+	document.getElementById('dice-btn').onclick = play;
 }
 
 setUpRollDice();
+
+// MUSIQUE
+// const audio = new Audio('../musique/theme.mp3');
+// 	audio.play();
