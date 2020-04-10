@@ -227,7 +227,7 @@ class Player {
 			buttonRollDiceElement.style.display = 'block';
 			messageElement.innerText = playTimeMessage;
 
-			let currentPlayer = players[playerIndex];
+			let currentPlayer = players[turn % players.length];
 			// remplacer element du DOM par currentPlayer.name
 
 			playerElement.style.color = currentPlayer.color;
@@ -240,8 +240,8 @@ class Player {
 			this.own += 1;
 			card.setOwner(this);
 
-			document.getElementsByClassName('life-player')[playerIndex].innerHTML = this.life;
-			document.getElementsByClassName('cardOwned-player')[playerIndex].innerHTML = this.cards.length;
+			document.getElementsByClassName('life-player')[turn % players.length].innerHTML = this.life;
+			document.getElementsByClassName('cardOwned-player')[turn % players.length].innerHTML = this.cards.length;
 
 			commonOnClick();
 		};
@@ -258,11 +258,12 @@ class Player {
 		this.cards.forEach((card) => {
 			card.setOwner(undefined);
 		});
-		document.querySelector(`#card-${this.position} .player${playerIndex + 1}-color`).style.visibility = 'hidden';
+		document.querySelector(`#card-${this.position} .player${turn % players.length + 1}-color`).style.visibility =
+			'hidden';
 
 		const nextPlayers = [];
 		players.forEach((player, index) => {
-			if (index !== playerIndex) {
+			if (index !== turn % players.length) {
 				nextPlayers.push(player);
 			}
 		});
@@ -338,6 +339,7 @@ let player1Color = document.getElementsByClassName('player1-color');
 let turn = 0;
 
 function play() {
+	console.log(turn % players.length);
 	const playerIndex = turn % players.length;
 	let currentPlayer = players[playerIndex];
 	// remplacer element du DOM par currentPlayer.name

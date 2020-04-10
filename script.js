@@ -56,3 +56,5 @@ window.addEventListener('load', () => {
 
 const audio = new Audio('./musique/theme.mp3');
 	audio.play();
+
+	
