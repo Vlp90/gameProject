@@ -20,10 +20,10 @@
 
 /*Player*/
 
+.play0,
 .play1,
 .play2,
-.play3,
-.play4 {
+.play3 {
 	font-weight: 600;
 	font-size: 25px;
 }
@@ -34,7 +34,7 @@
 
 }
 
-.player1-color {
+.player0-color {
 	width: 100px;
 	height: 100px;
 	background-color: blue;
@@ -45,7 +45,7 @@
 	
 }
 
-.player2-color {
+.player1-color {
 	width: 100px;
 	height: 100px;
 	background-color: green;
@@ -55,7 +55,7 @@
 	
 }
 
-.player3-color {
+.player2-color {
 	width: 100px;
 	height: 100px;
 	background-color: yellow;
@@ -65,7 +65,7 @@
 	
 }
 
-.player4-color {
+.player3-color {
 	width: 100px;
 	height: 100px;
 	background-color: red;
