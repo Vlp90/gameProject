@@ -6,7 +6,7 @@
 }
 
 .main-image {
-	background-image: url("/images/mainImage1.png");
+	background-image: url("./images/mainImage1.png");
 	background-size: cover;
 	width: 100%;
 	height: 100vh;
@@ -124,3 +124,32 @@ button:active {
 	margin-left: 30px;
 }
 
+.set-up-rules {
+	margin-top: 20px;
+	background-color: white;
+	opacity: 95%;
+	justify-content: space-around;
+	align-items: center;
+	width: 40%;
+	padding: 10px;
+	border-radius: 6px;
+	text-align: center;
+}
+
+.element {
+	display: flex;
+	margin: 20px;
+	justify-content: center;
+	font-weight: 600;
+}
+
+h2 {
+	margin-right: 10px;
+	color: #d3c5a7;
+	font-size: 24px;
+}
+
+.h1 {
+	font-size: 36px;
+	font-family: 'Rancho', cursive;
+}
